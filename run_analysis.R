@@ -108,7 +108,6 @@ wdpath<-file.path(getwd(),"dataset","UCI HAR Dataset")
   
   #* IV.ii# Group tables by activity and by subject
   HARbyActivitySubject <-   group_by(humanactivityrecognition[,definedmeanstdcol],activityname, subject)
-  HARbyActivitySubject2 <-   group_by(humanactivityrecognition[,definedmeanstdcol],activityname, subject)
   
   #* IV.iii# Summarize table by averages on level of activity and Subject
   averageHARbyActivitySubject <- summarize_at(HARbyActivitySubject,colnames(HARbyActivitySubject)[-(1:3)],mean)

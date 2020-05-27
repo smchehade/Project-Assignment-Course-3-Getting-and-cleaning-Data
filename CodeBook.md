@@ -10,31 +10,40 @@ the corresponding subject and activity names related to the captured 561 variabl
 download the files and fetch all above .txt into tables:
 
 subject_test <-tbl_df(read.table(subject_test_filepath,col.names = "subject",stringsAsFactors = FALSE))
-    
-    
+X_test tables includes "X_test.txt"
+Y_test tables includes "y_test.txt"
+subject_test tables includes "Subject_test.txt"
+X_train tables includes "X_train.txt"
+Y_train tables includes "y_train.txt"
+subject_train tables includes "Subject_train.txt"
+Activity Labels
+activity_labels_fileindex <- grep("^activity",mainfileslist)
+activity_labels_filepath <- file.path(wdpath,mainfileslist[activity_labels_fileindex])
+activity_labels <-tbl_df(read.table(activity_labels_filepath,col.names = c("activityindex","activityname"),stringsAsFactors = FALSE))
+features  which is the variables names that are recorded in X_test and X_train
+
+Note: Somefeature names were change to give more complete meaning ( ACC replaced with Accelerometer,...)
+
+For more details on the variables definition and names refere to "features_info.txt" and "features.txt"
+
+###Section:II Assigning Labels in run_analysis.R
+This section assigns labels to column names in X_test and X_train, which is the feature/variable name in "features.txt"
+
+###Section:III Merge test and train records data  in run_analysis.R
+This section merges in two dimentions. 
+Rows Merging Dimension (test and train):it combines the records of test and train together to get the following:
+X has records of X_test table and X_train
+Y has records of Y_test table and Y_train
+Subject has records of Subject_test table and Subject_train
+
+Columns Merging Dimension (Subject, X, and Y, Activity Name)
+humanactivityrecognition  is the Final Merged table
+
+
  
-    X_test tables includes "X_test.txt"
-    Y_test tables includes "y_test.txt"
-    subject_test tables includes "Subject_test.txt"
-  
-  
-    X_train tables includes "X_train.txt"
-    Y_train tables includes "y_train.txt"
-    subject_train tables includes "Subject_train.txt"
- 
-  
-  
-    #Activity Labels
-    activity_labels_fileindex <- grep("^activity",mainfileslist)
-    activity_labels_filepath <- file.path(wdpath,mainfileslist[activity_labels_fileindex])
-    activity_labels <-tbl_df(read.table(activity_labels_filepath,col.names = c("activityindex","activityname"),stringsAsFactors = FALSE))
-    
-    #variables == features  
-    features_fileindex <- grep("features.txt",mainfileslist)
-    features_filepath <- file.path(wdpath,mainfileslist[features_fileindex])
-    features <-tbl_df(read.table(features_filepath,col.names = c("featureindex","feature"),stringsAsFactors = FALSE))
+###Section:IV Independent tidy data set with the average of each variable grouped by activity name then subject
+In this section, is constructed in 3 steps.
+step 1: Select columns related to mean and standard deviation of the variables
+step 2: Group the table by activity name then subject and store in **HARbyActivitySubject**
+step 3: Apply the mean on each column and store in **averageHARbyActivitySubject**
 
-
-Defining Variables, and their names
-
-defining activity a
